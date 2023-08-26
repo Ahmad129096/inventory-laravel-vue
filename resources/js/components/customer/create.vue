@@ -38,7 +38,6 @@
                                             type="text"
                                             v-model="form.name"
                                             class="form-control"
-                                            required
                                             placeholder="Enter Name"
                                         />
                                         <small
@@ -75,7 +74,6 @@
                                             type="text"
                                             v-model="form.address"
                                             class="form-control"
-                                            required
                                             placeholder="Enter Address"
                                         />
                                         <small
@@ -92,7 +90,6 @@
                                             type="text"
                                             v-model="form.phone"
                                             class="form-control"
-                                            required
                                             placeholder="Enter Phone"
                                         />
                                         <small
@@ -179,7 +176,9 @@ export default {
                 .post("/api/Customer/", this.form)
                 .then(() => {
                     this.$router.push({ name: "Customer" });
-                    Notification.success();
+                    Notification.success({
+                        message: "Customer created Successfully!"
+                    });
                 })
                 .catch(error => (this.errors = error.response.data.errors));
         }
