@@ -1,59 +1,57 @@
-
-class Notification{
-
-    success(){
+class Notification {
+    success({ message }) {
         new Noty({
-            type:'success',
-            layout:'topRight',
-            text: 'Successfully Done !',
-            timeout:1000,
+            type: "success",
+            layout: "topRight",
+            text: message || "Successfully done!.",
+            timeout: 1000
         }).show();
     }
 
-    cart_success(){
+    cart_success() {
         new Noty({
-            type: 'success',
-            layout: 'topRight',
-            text: 'Successfully Added !',
-            timeout: 1000,
+            type: "success",
+            layout: "topRight",
+            text: "Successfully Added !",
+            timeout: 1000
         }).show();
     }
 
-    alert(){
+    alert({ message }) {
         new Noty({
-            type:'alert',
-            layout:'topRight',
-            text: 'Are you sure ?',
-            timeout:1000,
+            type: "alert",
+            layout: "topRight",
+            text: message || "Are you sure ?",
+            timeout: 1000
         }).show();
     }
 
-    error(){
+    error({ message }) {
         new Noty({
-            type:'error',
-            layout:'topRight',
-            text: 'Something went wrong !',
-            timeout:1000,
+            type: "error",
+            layout: "topRight",
+            text: message || "Something went wrong !",
+            timeout: 1000
         }).show();
     }
 
-    warning(){
+    warning({ message }) {
         new Noty({
-            type:'warning',
-            layout:'topRight',
-            text: 'Oops! Wrong',
-            timeout:1000,
+            type: "warning",
+            layout: "topRight",
+            text: message || "Oops! Wrong",
+            timeout: 1000
         }).show();
     }
 
-    image_validation(){
+    image_validation() {
         new Noty({
-            type:'error',
-            layout:'topRight',
-            text:'Image should be less than 1MB',
-            timeout:1000,
+            type: "error",
+            layout: "topRight",
+            text: "Image should be less than 1MB",
+            timeout: 1000
         }).show();
     }
 }
 
-export default Notification = new Notification()
+export default Notification = new Notification();
