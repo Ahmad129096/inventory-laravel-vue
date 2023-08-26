@@ -305,10 +305,13 @@
                                                 >
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div
+                                            class="col-md-6"
+                                            v-show="form.photo"
+                                        >
                                             <img
                                                 :src="form.photo"
-                                                style="height:40px; width: 40px;"
+                                                style="height:80px; width: 80px;"
                                             />
                                         </div>
                                     </div>
