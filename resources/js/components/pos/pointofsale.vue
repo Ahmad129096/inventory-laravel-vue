@@ -125,7 +125,7 @@
                     <form @submit.prevent="orderdone">
                         <!--------------2----------------->
                         <label>Customer Name</label>
-                        <select class="form-control" v-model="customer_id">
+                        <select class="form-control" v-model="customer_id" required>
                             <option
                                 :value="customer.id"
                                 v-for="customer in customers"
@@ -158,7 +158,7 @@
                         />
 
                         <label>Pay By</label>
-                        <select class="form-control" v-model="payby">
+                        <select class="form-control" v-model="payby" required>
                             <option value="HandCash">Hand Cash</option>
                             <option value="Cheaque">Cheaque</option>
                             <option value="GiftCard">Gift Card</option>
@@ -744,7 +744,7 @@ export default {
                 .catch();
         },
         orderdone() {
-            let total = (this.subtotal * this.vats.vat) / 100 + this.subtotal;
+            let total = (this.subtotal * this.vats.vat ?? 0) / 100 + this.subtotal;
             let due = (total - this.pay).toFixed(2); //variable.toFixed(2)=take 2 specified decimal number
             var data = {
                 qty: this.qty,
@@ -757,9 +757,12 @@ export default {
                 total: total
             }; //due:this.due //due_dynamic
 
-            axios.post("/api/orderdone/", data).then(() => {
-                Notification.success();
-                this.$router.push({ name: "home" });
+            axios.post("/api/orderdone/", data).then((res) => {
+                if(res){
+                    console.log({res})
+                    Notification.success({message: "Product Sold Successfully!"});
+                    this.$router.push({ name: "home" });
+                }
             });
         },
         //---End_cart_methods----
