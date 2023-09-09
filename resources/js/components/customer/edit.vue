@@ -1,5 +1,7 @@
 <template>
-    <div>
+    <div v-if="fetchCustomer" class="loader"></div>
+
+    <div v-else>
         <!-- Breadcrumbs-->
         <ol class="breadcrumb mt-3">
             <li class="breadcrumb-item">
@@ -10,56 +12,28 @@
         <!-- Icon Cards-->
         <div class="row container">
             <div class="card col-lg-12 border-primary shadow">
-                <div
-                    class="card-header text-primary"
-                    style="font-size: 20px; font-weight: 700;"
-                >
+                <div class="card-header text-primary" style="font-size: 20px; font-weight: 700;">
                     <i class="fas fa-chart-area"></i>
                     Customer Update
-                    <router-link
-                        to="/Customer"
-                        class="btn btn-primary"
-                        id="add_new"
-                    >
-                        All Customer</router-link
-                    >
+                    <router-link to="/Customer" class="btn btn-primary" id="add_new">
+                        All Customer</router-link>
                 </div>
                 <div class="card-body">
-                    <form
-                        @submit.prevent="customerUpdate"
-                        enctype="multipart/form-data"
-                    >
+                    <form @submit.prevent="customerUpdate" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-label-group">
                                         <label for="firstName">Full Name</label>
-                                        <input
-                                            type="text"
-                                            v-model="form.name"
-                                            class="form-control"
-                                            required
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.name"
-                                            >{{ errors.name[0] }}</small
-                                        >
+                                        <input type="text" v-model="form.name" class="form-control" required />
+                                        <small class="text-danger" v-if="errors.name">{{ errors.name[0] }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-label-group">
                                         <label>Email Address</label>
-                                        <input
-                                            type="text"
-                                            v-model="form.email"
-                                            class="form-control"
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.email"
-                                            >{{ errors.email[0] }}</small
-                                        >
+                                        <input type="text" v-model="form.email" class="form-control" />
+                                        <small class="text-danger" v-if="errors.email">{{ errors.email[0] }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -69,33 +43,15 @@
                                 <div class="col-md-6">
                                     <div class="form-label-group">
                                         <label>Address</label>
-                                        <input
-                                            type="text"
-                                            v-model="form.address"
-                                            class="form-control"
-                                            required
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.address"
-                                            >{{ errors.address[0] }}</small
-                                        >
+                                        <input type="text" v-model="form.address" class="form-control" required />
+                                        <small class="text-danger" v-if="errors.address">{{ errors.address[0] }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-label-group">
                                         <label>Phone</label>
-                                        <input
-                                            type="text"
-                                            v-model="form.phone"
-                                            class="form-control"
-                                            required=""
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.phone"
-                                            >{{ errors.phone[0] }}</small
-                                        >
+                                        <input type="text" v-model="form.phone" class="form-control" required="" />
+                                        <small class="text-danger" v-if="errors.phone">{{ errors.phone[0] }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -104,23 +60,12 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-label-group">
-                                        <input
-                                            type="file"
-                                            class="btn btn-info"
-                                            @change="onFileselected"
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.photo"
-                                            >{{ errors.photo[0] }}</small
-                                        >
+                                        <input type="file" class="btn btn-info" @change="onFileselected" />
+                                        <small class="text-danger" v-if="errors.photo">{{ errors.photo[0] }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6" v-show="form.photo">
-                                    <img
-                                        :src="'/' + form.photo"
-                                        style="height:40px; width: 40px;"
-                                    />
+                                    <img :src="'/' + form.photo" style="height:40px; width: 40px;" />
                                 </div>
                             </div>
                         </div>
@@ -154,14 +99,19 @@ export default {
                 newphoto: "",
                 phone: ""
             },
+            fetchCustomer: false,
             errors: {}
         };
     },
     created() {
+        this.fetchCustomer = true
         let id = this.$route.params.id;
         axios
             .get("/api/Customer/" + id)
-            .then(({ data }) => (this.form = data))
+            .then(({ data }) => {
+                this.form = data;
+                this.fetchCustomer = false
+            })
             .catch();
     },
     methods: {
@@ -183,7 +133,7 @@ export default {
                 .patch("/api/Customer/" + id, this.form)
                 .then(() => {
                     this.$router.push({ name: "Customer" });
-                    Notification.success();
+                    Notification.success({ message: "Customer updated Successfully!" });
                 })
                 .catch(error => (this.errors = error.response.data.errors));
         }

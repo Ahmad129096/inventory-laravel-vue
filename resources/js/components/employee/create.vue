@@ -13,65 +13,34 @@
         <div class="row container">
             <div class="card col-lg-12 border-primary shadow">
                 <!--------f------->
-                <div
-                    class="card-header text-primary"
-                    style="font-size: 20px; font-weight: 700;"
-                >
+                <div class="card-header text-primary" style="font-size: 20px; font-weight: 700;">
                     <!------f----->
                     <i class="fas fa-chart-area"></i>
                     Employee Insert
-                    <router-link
-                        to="/employee"
-                        class="btn btn-primary"
-                        id="add_new"
-                    >
-                        All Employee</router-link
-                    >
+                    <router-link to="/employee" class="btn btn-primary" id="add_new">
+                        All Employee</router-link>
                     <!----------->
                 </div>
 
                 <div class="card-body">
-                    <form
-                        @submit.prevent="employeeInsert"
-                        enctype="multipart/form-data"
-                    >
+                    <form @submit.prevent="employeeInsert" enctype="multipart/form-data">
                         <!------------------------>
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-label-group">
                                         <label for="firstName">Full Name</label>
-                                        <input
-                                            type="text"
-                                            id="firstName"
-                                            v-model="form.name"
-                                            class="form-control"
-                                            required
-                                            placeholder="Enter Name"
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.name"
-                                            >{{ errors.name[0] }}</small
-                                        >
+                                        <input type="text" id="firstName" v-model="form.name" class="form-control" required
+                                            placeholder="Enter Name" />
+                                        <small class="text-danger" v-if="errors.name">{{ errors.name[0] }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-label-group">
                                         <label for="email">Email Address</label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            v-model="form.email"
-                                            class="form-control"
-                                            placeholder="Enter Email"
-                                            required
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.email"
-                                            >{{ errors.email[0] }}</small
-                                        >
+                                        <input type="email" id="email" v-model="form.email" class="form-control"
+                                            placeholder="Enter Email" />
+                                        <small class="text-danger" v-if="errors.email">{{ errors.email[0] }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -81,36 +50,17 @@
                                 <div class="col-md-6">
                                     <div class="form-label-group">
                                         <label for="firstName">Address</label>
-                                        <input
-                                            type="text"
-                                            v-model="form.address"
-                                            class="form-control"
-                                            required
-                                            placeholder="Enter Address"
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.address"
-                                            >{{ errors.address[0] }}</small
-                                        >
+                                        <input type="text" v-model="form.address" class="form-control" required
+                                            placeholder="Enter Address" />
+                                        <small class="text-danger" v-if="errors.address">{{ errors.address[0] }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-label-group">
                                         <label for="sallery">Salary</label>
-                                        <input
-                                            type="text"
-                                            id="sallery"
-                                            v-model="form.salary"
-                                            class="form-control"
-                                            required
-                                            placeholder="Enter Salary"
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.salary"
-                                            >{{ errors.salary[0] }}</small
-                                        >
+                                        <input type="text" id="sallery" v-model="form.salary" class="form-control" required
+                                            placeholder="Enter Salary" />
+                                        <small class="text-danger" v-if="errors.salary">{{ errors.salary[0] }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -119,57 +69,27 @@
                             <div class="form-row">
                                 <div class="col-md-4">
                                     <div class="form-label-group">
-                                        <label for="firstName"
-                                            >Joining Date</label
-                                        >
-                                        <input
-                                            type="date"
-                                            v-model="form.joining_date"
-                                            class="form-control"
-                                            autofocus="autofocus"
-                                            required
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.joining_date"
-                                            >{{ errors.joining_date[0] }}</small
-                                        >
+                                        <label for="firstName">Joining Date</label>
+                                        <input type="date" v-model="form.joining_date" class="form-control"
+                                            autofocus="autofocus" />
+                                        <small class="text-danger" v-if="errors.joining_date">{{ errors.joining_date[0]
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-label-group">
-                                        <label for="nid">NID Number</label>
-                                        <input
-                                            type="text"
-                                            id="nid"
-                                            v-model="form.nid"
-                                            class="form-control"
-                                            required
-                                            placeholder="Enter NID"
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.nid"
-                                            >{{ errors.nid[0] }}</small
-                                        >
+                                        <label for="nid">CNIC Number</label>
+                                        <input type="text" id="nid" v-model="form.nid" class="form-control" required
+                                            placeholder="Enter CNIC" />
+                                        <small class="text-danger" v-if="errors.nid">{{ errors.nid[0] }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-label-group">
                                         <label for="phone">Phone Number</label>
-                                        <input
-                                            type="text"
-                                            id="phone"
-                                            v-model="form.phone"
-                                            class="form-control"
-                                            required
-                                            placeholder="Enter Phone Number"
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.phone"
-                                            >{{ errors.phone[0] }}</small
-                                        >
+                                        <input type="text" id="phone" v-model="form.phone" class="form-control" required
+                                            placeholder="Enter Phone Number" />
+                                        <small class="text-danger" v-if="errors.phone">{{ errors.phone[0] }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -178,24 +98,13 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-label-group">
-                                        <input
-                                            type="file"
-                                            class="btn btn-info"
-                                            @change="onFileselected"
-                                        />
+                                        <input type="file" class="btn btn-info" @change="onFileselected" />
                                         <!----------------->
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.photo"
-                                            >{{ errors.photo[0] }}</small
-                                        >
+                                        <small class="text-danger" v-if="errors.photo">{{ errors.photo[0] }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6" v-show="form.photo">
-                                    <img
-                                        :src="form.photo"
-                                        style="height:100px; width: 100px;"
-                                    />
+                                    <img :src="form.photo" style="height:100px; width: 100px;" />
                                     <!------------------>
                                 </div>
                             </div>

@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div v-if="fetchCategory" class="loader"></div>
+    <div v-else>
         <!-- Breadcrumbs-->
         <ol class="breadcrumb mt-3">
             <li class="breadcrumb-item">
@@ -22,8 +23,9 @@
                                 <div class="col-md-12">
                                     <div class="form-label-group">
                                         <label>Category Name : </label>
-                                        <input type="text" v-model="form.category_name" class="form-control"   required="">
-                                        <small class="text-danger" v-if="errors.category_name">{{ errors.category_name[0] }}</small>
+                                        <input type="text" v-model="form.category_name" class="form-control" required="">
+                                        <small class="text-danger" v-if="errors.category_name">{{ errors.category_name[0]
+                                        }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -38,44 +40,49 @@
 
 
 <script>
-    export default {
-        mounted(){
-            if (!User.loggedIn()) {
-                this.$router.push({ name:'/' })
-            }
-        },
-        data(){
-            return{
-                form:{
-                    category_name :''
-
-                },
-                errors:{},
-            }
-        },
-        created(){
-            let id = this.$route.params.id
-            axios.get('/api/category/'+id)
-                .then(({data}) => (this.form = data))
-                .catch()
-        },
-        methods:{
-            caetgoryUpdate(){
-                let id = this.$route.params.id
-                axios.patch('/api/category/'+id,this.form)
-                    .then(() => {
-                        this.$router.push({ name: 'category' })
-                        Notification.success()
-                    })
-                    .catch(error => this.errors = error.response.data.errors)
-            },
+export default {
+    mounted() {
+        if (!User.loggedIn()) {
+            this.$router.push({ name: '/' })
         }
+    },
+    data() {
+        return {
+            form: {
+                category_name: ''
+
+            },
+            fetchCategory: false,
+            errors: {},
+        }
+    },
+    created() {
+        this.fetchCategory = true;
+        let id = this.$route.params.id
+        axios.get('/api/category/' + id)
+            .then(({ data }) => {
+                this.form = data
+                this.fetchCategory = false
+            })
+            .catch()
+    },
+    methods: {
+        caetgoryUpdate() {
+            let id = this.$route.params.id
+            axios.patch('/api/category/' + id, this.form)
+                .then(() => {
+                    this.$router.push({ name: 'category' })
+                    Notification.success()
+                })
+                .catch(error => this.errors = error.response.data.errors)
+        },
     }
+}
 </script>
 
 
 <style>
-    #add_new{
-        float: right;
-    }
+#add_new {
+    float: right;
+}
 </style>

@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div v-if="fetchProduct" class="loader"></div>
+    <div v-else>
         <!-- Breadcrumbs-->
         <ol class="breadcrumb mt-3">
             <li class="breadcrumb-item">
@@ -10,60 +11,30 @@
         <!-- Icon Cards-->
         <div class="row container">
             <div class="card col-lg-12 border-primary shadow mb-3">
-                <div
-                    class="card-header text-primary"
-                    style="font-size: 20px; font-weight: 700;"
-                >
+                <div class="card-header text-primary" style="font-size: 20px; font-weight: 700;">
                     <i class="fas fa-chart-area"></i>
                     Product Update
-                    <router-link
-                        to="/product"
-                        class="btn btn-primary"
-                        id="add_new"
-                    >
-                        All Product</router-link
-                    >
+                    <router-link to="/product" class="btn btn-primary" id="add_new">
+                        All Product</router-link>
                 </div>
                 <div class="card-body">
-                    <form
-                        @submit.prevent="productUpdate"
-                        enctype="multipart/form-data"
-                    >
+                    <form @submit.prevent="productUpdate" enctype="multipart/form-data">
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-label-group">
-                                        <label for="firstName"
-                                            >Product Name</label
-                                        >
-                                        <input
-                                            type="text"
-                                            v-model="form.product_name"
-                                            class="form-control"
-                                            required
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.product_name"
-                                            >{{ errors.product_name[0] }}</small
-                                        >
+                                        <label for="firstName">Product Name</label>
+                                        <input type="text" v-model="form.product_name" class="form-control" required />
+                                        <small class="text-danger" v-if="errors.product_name">{{ errors.product_name[0]
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-label-group">
-                                        <label for="lastName"
-                                            >Product Code</label
-                                        >
-                                        <input
-                                            type="text"
-                                            v-model="form.product_code"
-                                            class="form-control"
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.product_code"
-                                            >{{ errors.product_code[0] }}</small
-                                        >
+                                        <label for="lastName">Product Code</label>
+                                        <input type="text" v-model="form.product_code" class="form-control" />
+                                        <small class="text-danger" v-if="errors.product_code">{{ errors.product_code[0]
+                                        }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -73,45 +44,24 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Select1">Category</label>
-                                        <select
-                                            class="form-control"
-                                            id="Select1"
-                                            v-model="form.category_id"
-                                        >
-                                            <option
-                                                :value="category.id"
-                                                v-for="category in categories"
-                                                >{{
-                                                    category.category_name
-                                                }}</option
-                                            >
+                                        <select class="form-control" id="Select1" v-model="form.category_id">
+                                            <option :value="category.id" v-for="category in categories">{{
+                                                category.category_name
+                                            }}</option>
                                         </select>
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.category_id"
-                                            >{{ errors.category_id[0] }}</small
-                                        >
+                                        <small class="text-danger" v-if="errors.category_id">{{ errors.category_id[0]
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Select2">Supplier</label>
-                                        <select
-                                            class="form-control"
-                                            id="Select2"
-                                            v-model="form.supplier_id"
-                                        >
-                                            <option
-                                                :value="supplier.id"
-                                                v-for="supplier in suppliers"
-                                                >{{ supplier.name }}</option
-                                            >
+                                        <select class="form-control" id="Select2" v-model="form.supplier_id">
+                                            <option :value="supplier.id" v-for="supplier in suppliers">{{ supplier.name }}
+                                            </option>
                                         </select>
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.supplier_id"
-                                            >{{ errors.supplier_id[0] }}</small
-                                        >
+                                        <small class="text-danger" v-if="errors.supplier_id">{{ errors.supplier_id[0]
+                                        }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -122,53 +72,26 @@
                                 <div class="col-md-4">
                                     <div class="form-label-group">
                                         <label for="firstName">Root</label>
-                                        <input
-                                            type="text"
-                                            v-model="form.root"
-                                            class="form-control"
-                                            required
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.root"
-                                            >{{ errors.root[0] }}</small
-                                        >
+                                        <input type="text" v-model="form.root" class="form-control" required />
+                                        <small class="text-danger" v-if="errors.root">{{ errors.root[0] }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-label-group">
                                         <label for="nid">Buying Price</label>
-                                        <input
-                                            type="text"
-                                            v-model="form.buying_price"
-                                            class="form-control"
-                                            required
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.buying_price"
-                                            >{{ errors.buying_price[0] }}</small
-                                        >
+                                        <input type="text" v-model="form.buying_price" class="form-control" required />
+                                        <small class="text-danger" v-if="errors.buying_price">{{ errors.buying_price[0]
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-label-group">
-                                        <label for="phone"
-                                            >Selling Price
+                                        <label for="phone">Selling Price
                                         </label>
-                                        <input
-                                            type="text"
-                                            v-model="form.selling_price"
-                                            class="form-control"
-                                            required
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.selling_price"
-                                            >{{
-                                                errors.selling_price[0]
-                                            }}</small
-                                        >
+                                        <input type="text" v-model="form.selling_price" class="form-control" required />
+                                        <small class="text-danger" v-if="errors.selling_price">{{
+                                            errors.selling_price[0]
+                                        }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -179,35 +102,18 @@
                                 <div class="col-md-6">
                                     <div class="form-label-group">
                                         <label for="nid">Buying Date</label>
-                                        <input
-                                            type="date"
-                                            v-model="form.buying_date"
-                                            class="form-control"
-                                            required
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.buying_date"
-                                            >{{ errors.buying_date[0] }}</small
-                                        >
+                                        <input type="date" v-model="form.buying_date" class="form-control" required />
+                                        <small class="text-danger" v-if="errors.buying_date">{{ errors.buying_date[0]
+                                        }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-label-group">
                                         <label for="phone">Quantity</label>
-                                        <input
-                                            type="text"
-                                            v-model="form.product_quantity"
-                                            class="form-control"
-                                            required
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.product_quantity"
-                                            >{{
-                                                errors.product_quantity[0]
-                                            }}</small
-                                        >
+                                        <input type="text" v-model="form.product_quantity" class="form-control" required />
+                                        <small class="text-danger" v-if="errors.product_quantity">{{
+                                            errors.product_quantity[0]
+                                        }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -217,23 +123,12 @@
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="form-label-group">
-                                        <input
-                                            type="file"
-                                            class="btn btn-info"
-                                            @change="onFileselected"
-                                        />
-                                        <small
-                                            class="text-danger"
-                                            v-if="errors.image"
-                                            >{{ errors.image[0] }}</small
-                                        >
+                                        <input type="file" class="btn btn-info" @change="onFileselected" />
+                                        <small class="text-danger" v-if="errors.image">{{ errors.image[0] }}</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6" v-show="form.image">
-                                    <img
-                                        :src="'/' + form.image"
-                                        style="height:40px; width: 40px;"
-                                    />
+                                    <img :src="'/' + form.image" style="height:40px; width: 40px;" />
                                 </div>
                             </div>
                         </div>
@@ -274,14 +169,19 @@ export default {
             },
             errors: {},
             categories: {},
-            suppliers: {}
+            suppliers: {},
+            fetchProduct: false
         };
     },
     created() {
+        this.fetchProduct = true
         let id = this.$route.params.id;
         axios
             .get("/api/product/" + id)
-            .then(({ data }) => (this.form = data))
+            .then(({ data }) => {
+                this.form = data
+                this.fetchProduct = false
+            })
             .catch();
         //--category collected--
         axios.get("/api/category").then(({ data }) => (this.categories = data));
@@ -307,7 +207,7 @@ export default {
                 .patch("/api/product/" + id, this.form)
                 .then(() => {
                     this.$router.push({ name: "product" });
-                    Notification.success();
+                    Notification.success({ message: "Product updated Successfully!" });
                 })
                 .catch(error => (this.errors = error.response.data.errors));
         }
