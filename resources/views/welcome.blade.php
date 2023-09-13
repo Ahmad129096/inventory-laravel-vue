@@ -176,6 +176,12 @@
                                 Stock
                             </router-link>
 
+                    <!--------------Reports----------->
+                            <router-link class="nav-link collapsed" to="/reports">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Reports
+                            </router-link>
+
                         </div>
                     </div>
                 </nav>
