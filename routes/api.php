@@ -34,7 +34,16 @@ Route::apiResource('/category','Api\CategoryController');      //--Category
 Route::apiResource('/product','Api\ProductController');        //--Product
 Route::apiResource('/expense','Api\ExpenseController');        //--Expense
 Route::apiResource('/Customer','Api\CustomerController');      //--Customer
+// Route::apiResource('/report','Api\ReportController');      //--Customer
 
+/** Reports Route */
+
+Route::Get('/report/sales', 'Api\ReportController@SalesReport');
+Route::Get('/report/reorder', 'Api\ReportController@ReorderReport');
+Route::Get('/report/stockstatus', 'Api\ReportController@StockStatus');
+Route::Get('/report/salesorder', 'Api\ReportController@SalesOrderReport');
+Route::Get('/report/purcahseorder', 'Api\ReportController@PurchaseOrderReport');
+Route::Get('/report/inventoryvaluation', 'Api\ReportController@InventoryValuation');
 
 Route::Post('/salary/paid/{id}','Api\SalaryController@Paid');      //--Salary_routes
 Route::Get('/salary','Api\SalaryController@AllSalary');
