@@ -12,13 +12,25 @@ class ReportController extends Controller{
     public function InventoryValuation()
     {
         $products= Product::all();
+        $inventory_asset=[];
         $stock_value =0;
+        $inventory_asset_value =0;
         for($i=0; $i<count($products); $i++){
-            $stock_value+=$products[$i]["buying_price"];
+            $d = [
+                'image' => $products[$i]["image"],
+                'product_id' => $products[$i]["id"],
+                'product_name' => $products[$i]["product_name"],
+                'product_code' =>  $products[$i]["product_code"],
+                'buying_price' => $stock_value+=$products[$i]["buying_price"],
+                'inventory_asset_value' => $inventory_asset_value+= $products[$i]["buying_price"]*$products[$i]["product_quantity"]
+            
+            ];
+            array_push($inventory_asset, $d) ;
+
         }
         $data = [
-            'stock_value' => $stock_value,
             'products' => $products, // Assuming $products is an array variable
+            'inventory_asset' => $inventory_asset
         ];
         return response()->json($data);
     }

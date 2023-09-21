@@ -128,5 +128,5 @@ export const routes = [
     { path: "/view-order/:id", component: vieworder, name: "view-order" },
     { path: "/searchorder", component: searchorder, name: "searchorder" },
     //-------Report Routes-----------
-    { path: "/reports", component: reports, name: "report" },
+    { path: "/reports", component: reports, name: "reports" },
 ];
